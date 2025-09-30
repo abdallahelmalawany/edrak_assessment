@@ -1,6 +1,6 @@
 ## Task 1: Create Project Structure & README
 
-
+```bash
 ubuntu@ip-172-31-16-147:~/edrak_assessment$ echo "This is a sample DevOps project for testing automation." >> project/docs/README.md
 ubuntu@ip-172-31-16-147:~/edrak_assessment$ ls
 project
@@ -17,15 +17,17 @@ ubuntu@ip-172-31-16-147:~/edrak_assessment$ tree
 5 directories, 3 files
 ubuntu@ip-172-31-16-147:~/edrak_assessment$ cat project/docs/README.md
 This is a sample DevOps project for testing automation.
-
+```
 ##################################################################################################
 ##Task2 :Configure the hostname of the Linux machine
+```bash
 ubuntu@ip-172-31-16-147:~/edrak_assessment$ sudo hostnamectl set-hostname devops-junior
 ubuntu@ip-172-31-16-147:~/edrak_assessment$ hostname
 devops-junior
-
+```
 #####################################################################################################
 ##Task3:Run a basic web server container
+```bash
 ubuntu@devops-junior:~$ sudo docker run -it -d -p 8080:80 --name edrak nginx
 ed3488fca5b604bba7dae6e1430988911dbddc0b97854268ffac566183888297
 
@@ -57,9 +59,11 @@ Commercial support is available at
 <p><em>Thank you for using nginx.</em></p>
 </body>
 </html>
+```
 ##################################################################################
 ## Task4:Automate a simple task using a bash script
-ubuntu@devops-junior:~$ vim backp.sh
+
+```bashubuntu@devops-junior:~$ vim backp.sh
 #!/bin/bash
 if [ "$#" -ne 2 ]; then
     echo "Usage: $0 Need to Two arguments <source_directory> <destination_directory>"
@@ -93,8 +97,10 @@ Backup file: edrak_assessment//backup_2025-09-30_23-23-57.tar.gz
 
 ubuntu@devops-junior:~/edrak_assessment$ ls
 backup_2025-09-30_23-23-57.tar.gz  project
+```
 ###################################################################################
 ##Task5:Set up a containerized database with security.
+```bash
 ubuntu@devops-junior:~/edrak_assessment$ docker run -d --name postgres_junior -e POSTGRES_PASSWORD=devops_pass -p 127.0.0.1:5432:5432 postgres
 ubuntu@devops-junior:~/edrak_assessment$ docker exec -it postgres_junior psql -U postgres
 psql (18.0 (Debian 18.0-1.pgdg13+3))
@@ -115,3 +121,4 @@ WARNING: psql major version 16, server major version 18.
 Type "help" for help.
 
 junior_db=# exit
+```
