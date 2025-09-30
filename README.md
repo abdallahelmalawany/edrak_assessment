@@ -19,14 +19,14 @@ ubuntu@ip-172-31-16-147:~/edrak_assessment$ cat project/docs/README.md
 This is a sample DevOps project for testing automation.
 ```
 
-##Task2 :Configure the hostname of the Linux machine
+## Task2 :Configure the hostname of the Linux machine
 ```bash
 ubuntu@ip-172-31-16-147:~/edrak_assessment$ sudo hostnamectl set-hostname devops-junior
 ubuntu@ip-172-31-16-147:~/edrak_assessment$ hostname
 devops-junior
 ```
 
-##Task3:Run a basic web server container
+## Task3:Run a basic web server container
 ```bash
 ubuntu@devops-junior:~$ sudo docker run -it -d -p 8080:80 --name edrak nginx
 ed3488fca5b604bba7dae6e1430988911dbddc0b97854268ffac566183888297
@@ -99,7 +99,7 @@ ubuntu@devops-junior:~/edrak_assessment$ ls
 backup_2025-09-30_23-23-57.tar.gz  project
 ```
 
-##Task5:Set up a containerized database with security.
+## Task5:Set up a containerized database with security.
 ```bash
 ubuntu@devops-junior:~/edrak_assessment$ docker run -d --name postgres_junior -e POSTGRES_PASSWORD=devops_pass -p 127.0.0.1:5432:5432 postgres
 ubuntu@devops-junior:~/edrak_assessment$ docker exec -it postgres_junior psql -U postgres
