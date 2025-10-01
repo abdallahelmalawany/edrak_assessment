@@ -136,3 +136,115 @@ junior_db=# exit
 <img width="909" height="215" alt="Screenshot 2025-10-01 023752" src="https://github.com/user-attachments/assets/67ab7af1-230e-4b80-9ea8-0186dcdba01b" />
 <img width="934" height="560" alt="Screenshot 2025-10-01 023725" src="https://github.com/user-attachments/assets/338b51cd-a8be-4983-a2d5-cd3c19731d0a" />
 
+## Task 6 ##########################
+## "Disabling root SSH reduces brute-force risks"), and verification (e.g., ufw status , SQL password policy check ##
+```bash
+ubuntu@devops-junior:~$ sudo vim /etc/ssh/sshd_config
+ubuntu@devops-junior:~$ sudo systemctl daemon-reload
+ubuntu@devops-junior:~$ sudo systemctl restart ssh
+ubuntu@devops-junior:~$ sudo systemctl status ssh
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/usr/lib/systemd/system/ssh.service; disabled; preset: enabled)
+    Drop-In: /usr/lib/systemd/system/ssh.service.d
+             └─ec2-instance-connect.conf
+     Active: active (running) since Wed 2025-10-01 16:31:13 UTC; 7s ago
+TriggeredBy: ● ssh.socket
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+    Process: 19908 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+   Main PID: 19909 (sshd)
+      Tasks: 1 (limit: 4526)
+     Memory: 1.2M (peak: 1.6M)
+        CPU: 11ms
+     CGroup: /system.slice/ssh.service
+             └─19909 "sshd: /usr/sbin/sshd -D -o AuthorizedKeysCommand /usr/share/ec2-instance-connect/eic_run_authorized_keys %u %f -o AuthorizedKeysComma>
+
+Oct 01 16:31:13 devops-junior systemd[1]: Starting ssh.service - OpenBSD Secure Shell server...
+Oct 01 16:31:13 devops-junior sshd[19909]: Server listening on 0.0.0.0 port 22.
+Oct 01 16:31:13 devops-junior sshd[19909]: Server listening on :: port 22.
+Oct 01 16:31:13 devops-junior systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+ubuntu@devops-junior:~$ grep PermitRootLogin /etc/ssh/sshd_config
+PermitRootLogin no
+
+ubuntu@devops-junior:~$ sudo ufw allow 22/tcp
+sudo ufw allow 5432/tcp
+sudo ufw enable
+Rules updated
+Rules updated (v6)
+Rules updated
+Rules updated (v6)
+
+Command may disrupt existing ssh connections. Proceed with operation (y|n)? y
+Firewall is active and enabled on system startup
+ubuntu@devops-junior:~$ sudo ufw status
+
+Status: active
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW       Anywhere
+5432/tcp                   ALLOW       Anywhere
+22/tcp (v6)                ALLOW       Anywhere (v6)
+5432/tcp (v6)              ALLOW       Anywhere (v6)
+
+ubuntu@devops-junior:~$ docker exec -it postgres_junior psql -U postgres
+psql (18.0 (Debian 18.0-1.pgdg13+3))
+Type "help" for help.
+
+postgres=# CREATE USER student_user WITH PASSWORD 'DevOps_pass';
+GRANT ALL PRIVILEGES ON DATABASE junior_db TO student_user;
+CREATE ROLE
+GRANT
+postgres=# \du
+                               List of roles
+  Role name   |                         Attributes
+--------------+------------------------------------------------------------
+ postgres     | Superuser, Create role, Create DB, Replication, Bypass RLS
+```
+<img width="1570" height="786" alt="Screenshot 2025-10-01 193414" src="https://github.com/user-attachments/assets/97d343bf-a448-44a5-9341-bb800197cbb1" />
+<img width="1560" height="418" alt="Screenshot 2025-10-01 193606" src="https://github.com/user-attachments/assets/39985c0f-41f2-47f2-b57b-0050ea64aa73" />
+
+## Install and configure a monitoring tool (e.g., htop or glances) and set up log rotation forsystem and SQL logs (e.g., using logrotate ).
+
+```bash
+ubuntu@devops-junior:~$ sudo apt install htop glances -y
+ubuntu@devops-junior:~$ htop
+```
+<img width="1606" height="865" alt="Screenshot 2025-10-02 003545" src="https://github.com/user-attachments/assets/04df921e-3169-4af3-a19b-f3cc11f5e515" />
+```bash
+ubuntu@devops-junior:~$ glances
+```
+<img width="1587" height="851" alt="Screenshot 2025-10-02 003609" src="https://github.com/user-attachments/assets/f88cbdd8-26f8-48f1-9278-68b01b062ab2" />
+```bash
+ubuntu@devops-junior:~$ sudo vim /etc/logrotate.d/postgresql
+/var/log/postgresql/*.log {
+    weekly
+    rotate 4
+    compress
+    delaycompress
+    notifempty
+    missingok
+}
+
+ubuntu@devops-junior:~$ sudo logrotate --debug /etc/logrotate.conf
+
+ubuntu@devops-junior:~$ ssh student_user@18.209.70.30
+The authenticity of host '18.209.70.30 (18.209.70.30)' can't be established.
+ED25519 key fingerprint is SHA256:tmUGRBExKmRVNmS/It13idLYVB56tIHiqMWGUJsvfr0.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '18.209.70.30' (ED25519) to the list of known hosts.
+student_user@18.209.70.30: Permission denied (publickey).
+ubuntu@devops-junior:~$ sudo tail -f /var/log/auth.log
+2025-10-01T21:45:46.252656+00:00 devops-junior sudo:   ubuntu : TTY=pts/0 ; PWD=/home/ubuntu ; USER=root ; COMMAND=/usr/bin/vim /etc/logrotate.d/postgresql
+2025-10-01T21:45:46.256072+00:00 devops-junior sudo: pam_unix(sudo:session): session opened for user root(uid=0) by ubuntu(uid=1000)
+2025-10-01T21:46:25.901754+00:00 devops-junior sudo: pam_unix(sudo:session): session closed for user root
+2025-10-01T21:46:39.322086+00:00 devops-junior sudo:   ubuntu : TTY=pts/0 ; PWD=/home/ubuntu ; USER=root ; COMMAND=/usr/sbin/logrotate --debug /etc/logrotate.conf
+2025-10-01T21:46:39.322527+00:00 devops-junior sudo: pam_unix(sudo:session): session opened for user root(uid=0) by ubuntu(uid=1000)
+2025-10-01T21:46:39.339376+00:00 devops-junior sudo: pam_unix(sudo:session): session closed for user root
+2025-10-01T21:48:13.716940+00:00 devops-junior sshd[24229]: Invalid user student_user from 18.209.70.30 port 44432
+2025-10-01T21:48:13.725020+00:00 devops-junior sshd[24229]: Connection closed by invalid user student_user 18.209.70.30 port 44432 [preauth]
+2025-10-01T21:48:23.611056+00:00 devops-junior sudo:   ubuntu : TTY=pts/0 ; PWD=/home/ubuntu ; USER=root ; COMMAND=/usr/bin/tail -f /var/log/auth.log
+2025-10-01T21:48:23.611503+00:00 devops-junior sudo: pam_unix(sudo:session): session opened for user root(uid=0) by ubuntu(uid=1000)
+```
+<img width="1585" height="808" alt="Screenshot 2025-10-02 004717" src="https://github.com/user-attachments/assets/08e34f46-a94c-4207-bccd-06b04de3d21d" />
