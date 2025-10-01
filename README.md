@@ -211,10 +211,13 @@ ubuntu@devops-junior:~$ sudo apt install htop glances -y
 ubuntu@devops-junior:~$ htop
 ```
 <img width="1606" height="865" alt="Screenshot 2025-10-02 003545" src="https://github.com/user-attachments/assets/04df921e-3169-4af3-a19b-f3cc11f5e515" />
+
 ```bash
 ubuntu@devops-junior:~$ glances
 ```
+
 <img width="1587" height="851" alt="Screenshot 2025-10-02 003609" src="https://github.com/user-attachments/assets/f88cbdd8-26f8-48f1-9278-68b01b062ab2" />
+
 ```bash
 ubuntu@devops-junior:~$ sudo vim /etc/logrotate.d/postgresql
 /var/log/postgresql/*.log {
