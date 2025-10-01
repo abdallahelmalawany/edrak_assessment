@@ -2,7 +2,9 @@
 <img width="821" height="333" alt="Screenshot 2025-10-01 015814" src="https://github.com/user-attachments/assets/70685592-67fc-4832-8974-f1b6b84b6e87" />
 
 ```bash
-ubuntu@ip-172-31-16-147:~/edrak_assessment$ echo "This is a sample DevOps project for testing automation." >> project/docs/README.md
+ubuntu@ip-172-31-16-147:~/edrak_assessment$mkdir -p project/src && mkdir project/docs && mkdir project/tests
+ubuntu@ip-172-31-16-147:~/edrak_assessment$touch project/src/main.py && touch project/docs/README.md && touch project/tests/test_main.py   # Create directories
+ubuntu@ip-172-31-16-147:~/edrak_assessment$ echo "This is a sample DevOps project for testing automation." >> project/docs/README.md        # create files
 ubuntu@ip-172-31-16-147:~/edrak_assessment$ ls
 project
 ubuntu@ip-172-31-16-147:~/edrak_assessment$ tree
@@ -30,13 +32,14 @@ devops-junior
 
 ## Task3:Run a basic web server container
 ```bash
+#create web container using ngnix image and expose on port 8080
 ubuntu@devops-junior:~$ sudo docker run -it -d -p 8080:80 --name edrak nginx
 ed3488fca5b604bba7dae6e1430988911dbddc0b97854268ffac566183888297
-
+# display the container
 ubuntu@devops-junior:~$ docker ps
 CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                                     NAMES
 ed3488fca5b6   nginx     "/docker-entrypoint.…"   8 seconds ago   Up 8 seconds   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   edrak
-
+# test the container
 ubuntu@devops-junior:~$ curl localhost:8080
 <!DOCTYPE html>
 <html>
@@ -67,7 +70,9 @@ Commercial support is available at
 
 ## Task4:Automate a simple task using a bash script
 
-```bashubuntu@devops-junior:~$ vim backp.sh
+```bash
+using vim editor to create and edit in file to write script
+ubuntu@devops-junior:~$ vim backp.sh
 #!/bin/bash
 if [ "$#" -ne 2 ]; then
     echo "Usage: $0 Need to Two arguments <source_directory> <destination_directory>"
@@ -95,7 +100,8 @@ else
     echo "Backup failed!"
     exit 3
 fi
-ubuntu@devops-junior:~$ ./backp.sh edrak_assessment/project/ edrak_assessment/
+ubuntu@devops-junior:~$ chmod +x backp.sh    #make the executable file 
+ubuntu@devops-junior:~$ ./backp.sh edrak_assessment/project/ edrak_assessment/   #run the script
 Backup successful!
 Backup file: edrak_assessment//backup_2025-09-30_23-23-57.tar.gz
 
@@ -106,18 +112,17 @@ backup_2025-09-30_23-23-57.tar.gz  project
 
 ## Task5:Set up a containerized database with security.
 ```bash
+# create database container and expose on port 5432 and set password and bind to localhost
 ubuntu@devops-junior:~/edrak_assessment$ docker run -d --name postgres_junior -e POSTGRES_PASSWORD=devops_pass -p 127.0.0.1:5432:5432 postgres
+execute psql command on database container and go inside the container
 ubuntu@devops-junior:~/edrak_assessment$ docker exec -it postgres_junior psql -U postgres
 psql (18.0 (Debian 18.0-1.pgdg13+3))
 Type "help" for help.
-
+# create database with junior_db name
 postgres=# CREATE DATABASE junior_db;
 CREATE DATABASE
-postgres=# \l
-postgres=# \p
-CREATE DATABASE junior_db;
 postgres=# exit
-
+ #test connectvity from host to database to ensure that is working
 ubuntu@devops-junior:~/edrak_assessment$ psql -h 127.0.0.1 -U postgres -d junior_db
 Password for user postgres:
 psql (16.10 (Ubuntu 16.10-0ubuntu0.24.04.1), server 18.0 (Debian 18.0-1.pgdg13+3))
