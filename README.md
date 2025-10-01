@@ -126,7 +126,8 @@ WARNING: psql major version 16, server major version 18.
 Type "help" for help.
 
 junior_db=# exit
-```<img width="854" height="210" alt="Screenshot 2025-10-01 023806" src="https://github.com/user-attachments/assets/a627b8fb-9be8-42f8-9449-a3427a628dfe" />
+```
+<img width="854" height="210" alt="Screenshot 2025-10-01 023806" src="https://github.com/user-attachments/assets/a627b8fb-9be8-42f8-9449-a3427a628dfe" />
 <img width="909" height="215" alt="Screenshot 2025-10-01 023752" src="https://github.com/user-attachments/assets/67ab7af1-230e-4b80-9ea8-0186dcdba01b" />
 <img width="934" height="560" alt="Screenshot 2025-10-01 023725" src="https://github.com/user-attachments/assets/338b51cd-a8be-4983-a2d5-cd3c19731d0a" />
 
