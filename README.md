@@ -1,4 +1,5 @@
 ## Task 1: Create Project Structure & README
+<img width="821" height="333" alt="Screenshot 2025-10-01 015814" src="https://github.com/user-attachments/assets/70685592-67fc-4832-8974-f1b6b84b6e87" />
 
 ```bash
 ubuntu@ip-172-31-16-147:~/edrak_assessment$ echo "This is a sample DevOps project for testing automation." >> project/docs/README.md
@@ -25,6 +26,7 @@ ubuntu@ip-172-31-16-147:~/edrak_assessment$ sudo hostnamectl set-hostname devops
 ubuntu@ip-172-31-16-147:~/edrak_assessment$ hostname
 devops-junior
 ```
+<img width="822" height="107" alt="Screenshot 2025-10-01 015954" src="https://github.com/user-attachments/assets/cbb929d1-fbef-4c6f-81b9-053ef88a7463" />
 
 ## Task3:Run a basic web server container
 ```bash
@@ -60,6 +62,8 @@ Commercial support is available at
 </body>
 </html>
 ```
+<img width="1919" height="966" alt="Screenshot 2025-10-01 021001" src="https://github.com/user-attachments/assets/a818ec34-8cdb-4053-9fe4-d553397bf238" />
+<img width="1222" height="725" alt="Screenshot 2025-10-01 030355" src="https://github.com/user-attachments/assets/c548f94b-9dfa-418e-b1ec-29b1322ed048" />
 
 ## Task4:Automate a simple task using a bash script
 
@@ -98,6 +102,7 @@ Backup file: edrak_assessment//backup_2025-09-30_23-23-57.tar.gz
 ubuntu@devops-junior:~/edrak_assessment$ ls
 backup_2025-09-30_23-23-57.tar.gz  project
 ```
+<img width="1077" height="724" alt="Screenshot 2025-10-01 030646" src="https://github.com/user-attachments/assets/37018738-4dae-40e9-9117-bc4c17c21c30" />
 
 ## Task5:Set up a containerized database with security.
 ```bash
@@ -121,4 +126,7 @@ WARNING: psql major version 16, server major version 18.
 Type "help" for help.
 
 junior_db=# exit
-```
+```<img width="854" height="210" alt="Screenshot 2025-10-01 023806" src="https://github.com/user-attachments/assets/a627b8fb-9be8-42f8-9449-a3427a628dfe" />
+<img width="909" height="215" alt="Screenshot 2025-10-01 023752" src="https://github.com/user-attachments/assets/67ab7af1-230e-4b80-9ea8-0186dcdba01b" />
+<img width="934" height="560" alt="Screenshot 2025-10-01 023725" src="https://github.com/user-attachments/assets/338b51cd-a8be-4983-a2d5-cd3c19731d0a" />
+
